@@ -45,3 +45,60 @@ Fop Ratio = 1613/14876 = 0.10842968539<br>
 DFF = 0.10842968539 X 100% = 10.84 %
 
 
+# Day 2
+### In this day of work, Floorplan Design is Carried out with following Steps<br><br>
+## Command for Run FloorPlan
+```
+% run_floorplan
+```
+### Screenshot
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/c51aa4c0b3e56c2e90655476161af5dac9daabb9/Day%202/FloorPlan_Start.png)
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/c51aa4c0b3e56c2e90655476161af5dac9daabb9/Day%202/FloorPlan_End.png)
+<br>
+
+## Calculation of Die Area in Microns from floorplan.def
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/c51aa4c0b3e56c2e90655476161af5dac9daabb9/Day%202/Die_Area.png)
+From the floorplan.def<br> we see that 1 unit= 1000 microns <br> Distance in micron = (value in unit distance )/1000 <br> 
+* Die width= (660685-0)/1000 = 660.685 &micro;m<br> 
+* Die Height = (671405-0)/1000 = 671.405 &micro;m<br><br>
+Total Die Area = 660.685 X 671.405 = 443587.212425 &micro;m<sup>2</sup>
+
+## Load the floorplan in def<br>
+#### Commands are<br>
+```
+cd Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/12-12_17-05/results/floorplan/
+
+magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.floorplan.def &
+
+```
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/c51aa4c0b3e56c2e90655476161af5dac9daabb9/Day%202/Flooerplan_Def_in_magic.png)
+<br>
+#### Equidistant Port
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/c51aa4c0b3e56c2e90655476161af5dac9daabb9/Day%202/Equidistant_port.png)
+<br>
+#### Run the Congestion Aware Palcement for PICORV32A
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/c51aa4c0b3e56c2e90655476161af5dac9daabb9/Day%202/Run_Congestion_Aware_Placement.png)
+<br><br>
+## Load the DEF in magic <br>
+#### Commands are<br>
+```
+cd Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/12-12_17-05/results/placement/
+
+magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.placement.def &
+
+```
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/c51aa4c0b3e56c2e90655476161af5dac9daabb9/Day%202/Load_Placement_in_Magic.png)
+<br>
+#### Standard Cells in the Placement DEF in magic
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/c51aa4c0b3e56c2e90655476161af5dac9daabb9/Day%202/Standard%20Cell.png)
+
+
+
+
+
+
+
+
+
+
+
