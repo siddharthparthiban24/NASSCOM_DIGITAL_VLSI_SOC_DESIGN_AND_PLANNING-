@@ -43,6 +43,7 @@ Formulae is given as Flop Ratio = (Number of D Flip Flops)/ (Number of Cells)<br
 
 Fop Ratio = 1613/14876 = 0.10842968539<br>
 DFF = 0.10842968539 X 100% = 10.84 %
+<br><br><br>
 
 
 # Day 2
@@ -91,6 +92,106 @@ magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs
 <br>
 #### Standard Cells in the Placement DEF in magic
 ![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/c51aa4c0b3e56c2e90655476161af5dac9daabb9/Day%202/Standard%20Cell.png)
+
+<br><br><br>
+
+
+
+## Day 3 - Design of Library Cell<br>
+### Lab Work with the Design of Library Cell with the Magic layout and using the ngspice to reperesent the charactirization of the layout.<br>
+
+#### Cloning the invertor design from the git hub repository. Following command is used.
+```
+cd Desktop/work/tools/openlane_working_dir/openlane
+
+git clone https://github.com/nickson-jose/vsdstdcelldesign
+
+cd vsdstdcelldesign
+
+cp /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech .
+
+ls
+
+magic -T sky130A.tech sky130_inv.mag &
+
+```
+#### Terminal Page
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/3c6e67f37746bc1dc5749446ba2cc9a0e799e28f/Day%203/Git_Clone.png)
+<br>
+
+#### Image of Layout of the Invertor 
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/3c6e67f37746bc1dc5749446ba2cc9a0e799e28f/Day%203/Magic_Layout.png)
+<br>
+
+### Spice Extraction of layout in magic<br>
+#### Following Commands is used to extract the spice file for the invertor layout design
+```
+pwd
+
+extract all
+
+ext2spice cthresh 0 rthresh 0
+
+ext2spice
+
+```
+#### Once the above command are typed in the tkon terminal , the spice is generated
+
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/3c6e67f37746bc1dc5749446ba2cc9a0e799e28f/Day%203/Spice_File%20Created.png)
+
+#### Edited Spice file
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/629b618733eccfbe01807a2c8642171724cf7d0b/Day%203/Edited_Spice_file.png)
+
+### After the extraction of Spice file, Command for the ngspice must be given
+```
+ngspice sky130_inv.spice
+
+plot y vs time a
+```
+#### Command page
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/629b618733eccfbe01807a2c8642171724cf7d0b/Day%203/ngspice_Run.png)
+#### The graph is generated
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/629b618733eccfbe01807a2c8642171724cf7d0b/Day%203/ngspice_with_Graph.png)
+#### Graph
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/629b618733eccfbe01807a2c8642171724cf7d0b/Day%203/graph.jpeg)
+
+#### Rise time Calculation<br>
+Rise Transition time = Time taken by output raise to 80% - Time take by output raise to 20%.
+
+#### Fall transition time calculation<br> 
+Fall Transition time = Time taken by output to fall to 20% -  Time taken by output to fall to 20%
+
+
+### Skywater Process - To Fix the DRC issues in Old magic file
+#### Command to view the issue
+```
+cd
+
+wget http://opencircuitdesign.com/open_pdks/archive/drc_tests.tgz
+
+tar xfz drc_tests.tgz
+
+cd drc_tests
+
+ls -al
+
+gvim .magicrc
+
+magic -d XR &
+```
+
+#### magicrc File
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/629b618733eccfbe01807a2c8642171724cf7d0b/Day%203/Magicrc%20file.png).
+<br><br><br>
+
+
+
+
+
+
+
+
+
 
 
 
