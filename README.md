@@ -197,6 +197,184 @@ cd Desktop/work/tools/openlane_working_dir/openlane/vsdstdcelldesign
 
 magic -T sky130A.tech sky130_inv.mag &
 ```
+#### Command Run
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2f03417962b3b903dfffb5c75e4eb7044724bede/Day%204/Command%20run.png)
+
+#### Track info of sky130_fd_sc
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2f03417962b3b903dfffb5c75e4eb7044724bede/Day%204/Track%20info.png)
+
+#### Commnds to be given in the tkon terminal to set grid
+```
+help grid
+
+grid 0.46um 0.34um 0.23um 0.17um
+```
+#### Command run in the tkon terminal
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2f03417962b3b903dfffb5c75e4eb7044724bede/Day%204/set%20grid%20in%20tkon.png)
+
+#### Condition 1 verified
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2f03417962b3b903dfffb5c75e4eb7044724bede/Day%204/Condition%201%20verified.png)
+
+#### Condition 2 verified
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2f03417962b3b903dfffb5c75e4eb7044724bede/Day%204/condition%202%20verified.png)
+
+### Save the final layout with the custom name , then opening the layout
+#### Command for save and open
+```
+# Command to save as
+save sky130_vsdinv.mag
+# Command to open custom inverter layout in magic
+magic -T sky130A.tech sky130_vsdinv.mag &
+```
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2f03417962b3b903dfffb5c75e4eb7044724bede/Day%204/Save%20the%20layout.png).
+
+#### Generation of LEF layout, following command is used
+```
+# lef command
+lef write
+```
+
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2f03417962b3b903dfffb5c75e4eb7044724bede/Day%204/Generate%20LEF.png)
+
+#### Newly Created Lef file
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2f03417962b3b903dfffb5c75e4eb7044724bede/Day%204/Newly%20Saved%20Layout.png)
+
+### Copy the newly generated lef and  files to 'picorv32a' design 'src' directory.
+#### Commands are
+```
+cp sky130_vsdinv.lef ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/
+
+ls ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/
+
+cp libs/sky130_fd_sc_hd__* ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/
+
+ls ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/
+```
+
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2f03417962b3b903dfffb5c75e4eb7044724bede/Day%204/Cmnds%20to%20copy%20necessary%20files%20to%20'picorv32a'%20design%20'src'%20directory.png)
+
+### Edit the Generated config.tcl file
+#### Commands are
+```
+set ::env(LIB_SYNTH) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__typical.lib"
+set ::env(LIB_FASTEST) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__fast.lib"
+set ::env(LIB_SLOWEST) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__slow.lib"
+set ::env(LIB_TYPICAL) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__typical.lib"
+
+set ::env(EXTRA_LEFS) [glob $::env(OPENLANE_ROOT)/designs/$::env(DESIGN_NAME)/src/*.lef]
+```
+#### Edited config.tcl file
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2f03417962b3b903dfffb5c75e4eb7044724bede/Day%204/Edit%20Config.tcl%20file.png)
+
+### Now to run the openlane commands for the synthesis and floorplan
+#### Commands are
+```
+cd Desktop/work/tools/openlane_working_dir/openlane
+
+docker
+
+./flow.tcl -interactive
+
+package require openlane 0.9
+
+prep -design picorv32a
+
+set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
+add_lefs -src $lefs
+
+run_synthesis
+
+```
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2f03417962b3b903dfffb5c75e4eb7044724bede/Day%204/opening%20of%20openlane.png)<br>
+
+#### Run Synthesis
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2f03417962b3b903dfffb5c75e4eb7044724bede/Day%204/run_synthesis.png)<br>
+
+#### Commands to view and change the timing parameters.
+```
+prep -design picorv32a -tag 24-03_10-03 -overwrite
+
+set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
+add_lefs -src $lefs
+
+echo $::env(SYNTH_STRATEGY)
+
+set ::env(SYNTH_STRATEGY) "DELAY 3"
+
+echo $::env(SYNTH_BUFFERING)
+
+echo $::env(SYNTH_SIZING)
+
+set ::env(SYNTH_SIZING) 1
+
+echo $::env(SYNTH_DRIVING_CELL)
+
+run_synthesis
+
+```
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2f03417962b3b903dfffb5c75e4eb7044724bede/Day%204/Commands%20to%20view%20and%20change%20parameters.png)<br>
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2f03417962b3b903dfffb5c75e4eb7044724bede/Day%204/run_synthesis.png) <br>
+
+#### Inorder to avoid the unexpected and unexplained error during the Floorplan process we do follow the below commands based on the Openlane_Commands.amd.
+#### Commands are<br>
+```
+
+init_floorplan
+place_io
+tap_decap_or
+
+```
+#### Command Run
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2f03417962b3b903dfffb5c75e4eb7044724bede/Day%204/Run_Floorplan-1.png)<br><br>
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2f03417962b3b903dfffb5c75e4eb7044724bede/Day%204/Run_Floorplan-2.png)<br><br>
+
+
+### Commands to load placement def in magic in another terminal
+```
+cd Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/24-03_10-03/results/placement/
+
+magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.placement.def &
+
+```
+#### Placement DEF in magic 
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2f03417962b3b903dfffb5c75e4eb7044724bede/Day%204/placement%20def%20in%20magic.png)<br><br>
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2f03417962b3b903dfffb5c75e4eb7044724bede/Day%204/placement%20def%20in%20magic_1.png)<br><br>
+
+### Post-Synthesis timing analysis using Open STA tool<br>
+#### Following Commands are used to invoke the OpenLANE flow include new lef and perform synthesis<br>
+```
+cd Desktop/work/tools/openlane_working_dir/openlane
+
+docker
+
+./flow.tcl -interactive
+
+package require openlane 0.9
+
+prep -design picorv32a
+
+set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
+add_lefs -src $lefs
+
+set ::env(SYNTH_SIZING) 1
+
+run_synthesis
+
+```
+#### Completion of run_synthesis process <br>
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2f03417962b3b903dfffb5c75e4eb7044724bede/Day%204/run_synthesis.png).
+
+### Newly Created "pre_sta.conf" for STA analysis
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2f03417962b3b903dfffb5c75e4eb7044724bede/Day%204/Run%20STA_1.png)<br><br>
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2f03417962b3b903dfffb5c75e4eb7044724bede/Day%204/Run_STA_2.png)<br><br>
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2f03417962b3b903dfffb5c75e4eb7044724bede/Day%204/Run_STA_3.png)<br><br>
+
+
+
+
+
+
+
 
 
 
