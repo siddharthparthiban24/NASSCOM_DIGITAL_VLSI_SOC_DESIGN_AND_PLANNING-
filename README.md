@@ -1,7 +1,8 @@
-# NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-
+# NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING
 ### Complete procedure of RTL to GDS design flow using OPENLANE and SKY130 PDK.
+<br><br><br>
 
-# Day 1
+# Day 1 - Introduction to Openlane and SKY130 PDK.<br>
 ## Commands for intializing Picorv32
 ```
 cd Desktop/work/tools/openlane_working_dir/openlane
@@ -46,7 +47,7 @@ DFF = 0.10842968539 X 100% = 10.84 %
 <br><br><br>
 
 
-# Day 2
+# Day 2 - Introduction to Library Cells and Floorplan.<br>
 ### In this day of work, Floorplan Design is Carried out with following Steps<br><br>
 ## Command for Run FloorPlan
 ```
@@ -97,7 +98,7 @@ magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs
 
 
 
-## Day 3 - Design of Library Cell<br>
+# Day 3 - Design of Library Cell.<br>
 ### Lab Work with the Design of Library Cell with the Magic layout and using the ngspice to reperesent the charactirization of the layout.<br>
 
 #### Cloning the invertor design from the git hub repository. Following command is used.
@@ -183,6 +184,22 @@ magic -d XR &
 #### magicrc File
 ![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/629b618733eccfbe01807a2c8642171724cf7d0b/Day%203/Magicrc%20file.png).
 <br><br><br>
+
+
+# Day 4 - Timing Analysis and Custom Cell Integration.<br>
+### In this day of lab session, it deals with the timing analysis , LEF generation , Fixing small DRC errors and post layout verification.<br>
+
+#### In order to fix the minor DRC errors it is important to open the custom invertor layout with the following commands.
+Commands are
+
+```
+cd Desktop/work/tools/openlane_working_dir/openlane/vsdstdcelldesign
+
+magic -T sky130A.tech sky130_inv.mag &
+```
+
+
+
 
 
 
