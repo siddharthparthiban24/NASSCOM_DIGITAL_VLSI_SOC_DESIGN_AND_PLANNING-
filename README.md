@@ -368,6 +368,153 @@ run_synthesis
 ![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2f03417962b3b903dfffb5c75e4eb7044724bede/Day%204/Run%20STA_1.png)<br><br>
 ![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2f03417962b3b903dfffb5c75e4eb7044724bede/Day%204/Run_STA_2.png)<br><br>
 ![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2f03417962b3b903dfffb5c75e4eb7044724bede/Day%204/Run_STA_3.png)<br><br>
+<br>
+
+# Day 5- Final Rpocedure for RTL2GDS using TritonRoute and OpenSTA<br>
+### The last day of the workshop deals with the detailed routing using TritonRoute and post-route timing analysis using OpenSTA to complete the RTL-to-GDSII flow.<br><br>
+
+### Power generation of PDN and Explore the PDN layout<br>
+#### Commands for Openlane and Newly added lef followed by run_synthesis , run_placement and generation of pdn file as follow<br>
+```
+cd Desktop/work/tools/openlane_working_dir/openlane
+
+docker
+
+./flow.tcl -interactive
+
+package require openlane 0.9
+
+prep -design picorv32a
+
+set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
+add_lefs -src $lefs
+
+set ::env(SYNTH_STRATEGY) "DELAY 3"
+
+set ::env(SYNTH_SIZING) 1
+
+
+run_synthesis
+
+init_floorplan
+place_io
+tap_decap_or
+
+run_placement
+
+run_cts
+
+gen_pdn
+
+```
+#### Images of the commands as follow
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2d9435fb9a9f9746a27fc27e2df99dc9c2dfbda2/Day%205/Run_Synthesis.png)
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2d9435fb9a9f9746a27fc27e2df99dc9c2dfbda2/Day%205/Run_Synthesis_Successfull.png)<br><br>
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2d9435fb9a9f9746a27fc27e2df99dc9c2dfbda2/Day%205/Run_Placement.png)
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2d9435fb9a9f9746a27fc27e2df99dc9c2dfbda2/Day%205/Run_Placement_Successfull.png)<br><br>
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2d9435fb9a9f9746a27fc27e2df99dc9c2dfbda2/Day%205/Run_PDN.png)
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2d9435fb9a9f9746a27fc27e2df99dc9c2dfbda2/Day%205/Run_PDN_Successfull.png)<br><br>
+
+#### Commads to load the PDN in def magic<br><br>
+```
+cd Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/15-12_16-22/tmp/floorplan/
+
+
+magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read 14-pdn.def &
+
+```
+#### Image of Commands and PDN in def
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2d9435fb9a9f9746a27fc27e2df99dc9c2dfbda2/Day%205/Commands%20to%20lead%20PDN%20in%20def.png)<br><br>
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2d9435fb9a9f9746a27fc27e2df99dc9c2dfbda2/Day%205/PDN%20in%20def_1.png)
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2d9435fb9a9f9746a27fc27e2df99dc9c2dfbda2/Day%205/PDN%20in%20def_2.png)
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2d9435fb9a9f9746a27fc27e2df99dc9c2dfbda2/Day%205/PDN%20in%20def_3.png)<br><br>
+
+### Perform Detailed routing using TritonRoute and to explore it<br><br>
+#### Commands are<br>
+```
+echo $::env(CURRENT_DEF)
+
+echo $::env(ROUTING_STRATEGY)
+
+run_routing
+```
+#### Image sif Routing Run<br><br>
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2d9435fb9a9f9746a27fc27e2df99dc9c2dfbda2/Day%205/Routing_Run_1.png)
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2d9435fb9a9f9746a27fc27e2df99dc9c2dfbda2/Day%205/Routing_Run_2.png)
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2d9435fb9a9f9746a27fc27e2df99dc9c2dfbda2/Day%205/Routing_run_Successful.png)<br><br>
+
+#### Commands to load Routing in DEf magic 
+```
+cd Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/15-12_16-22/results/routing/
+
+magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.def &
+
+```
+#### Image of the command
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2d9435fb9a9f9746a27fc27e2df99dc9c2dfbda2/Day%205/Commands%20for%20Routing%20Def.png)<br><br>
+
+#### Routing in def magic<br><br>
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2d9435fb9a9f9746a27fc27e2df99dc9c2dfbda2/Day%205/Routed_def_1.png)
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2d9435fb9a9f9746a27fc27e2df99dc9c2dfbda2/Day%205/Routed_def_2.png)
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2d9435fb9a9f9746a27fc27e2df99dc9c2dfbda2/Day%205/Routed_def_3.png)<br><br>
+
+#### Rotung Guide in New Terminal
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2d9435fb9a9f9746a27fc27e2df99dc9c2dfbda2/Day%205/Route_Guide.png)<br><br>
+
+### Post-Route Extraction using SPEF extractor<br>
+#### Commands for SPEf Extraction<br>
+```
+
+cd Desktop/work/tools/openlane_working_dir/openlane/scripts/spef_extractor
+
+python3 main.py \
+  --def_file /home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/15-12_16-22/results/routing/picorv32a.def \
+  --lef_file /home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/15-12_16-22/tmp/merged.lef
+```
+#### Image of the Commands runned
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2d9435fb9a9f9746a27fc27e2df99dc9c2dfbda2/Day%205/Commands_Post-route%20Extraction.png)<br><br>
+
+### Post-Route OpenSTA time analysis
+#### Commands are
+```
+openroad
+
+read_lef /openLANE_flow/designs/picorv32a/runs/15-12_16-22/tmp/merged.lef
+
+read_def /openLANE_flow/designs/picorv32a/runs/15-12_16-22/results/routing/picorv32a.def
+
+write_db pico_route.db
+
+read_db pico_route.db
+
+read_verilog /openLANE_flow/designs/picorv32a/runs/15-12_16-22/results/synthesis/picorv32a.synthesis_preroute.v
+
+read_liberty $::env(LIB_SYNTH_COMPLETE)
+
+link_design picorv32a
+
+read_sdc /openLANE_flow/designs/picorv32a/src/my_base.sdc
+
+set_propagated_clock [all_clocks]
+
+read_spef /openLANE_flow/designs/picorv32a/runs/15-12_16-22/results/routing/picorv32a.spef
+
+report_checks -path_delay min_max -fields {slew trans net cap input_pins} -format full_clock_expanded -digits 4
+
+exit
+
+```
+#### Images of Commands Runned and the Report Generated<br><br>
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2d9435fb9a9f9746a27fc27e2df99dc9c2dfbda2/Day%205/Post_Route_OpenSTA.png)<br><br>
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2d9435fb9a9f9746a27fc27e2df99dc9c2dfbda2/Day%205/post_Route_OpenSTA_1.png)
+![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2d9435fb9a9f9746a27fc27e2df99dc9c2dfbda2/Day%205/Post_Route_OpenSTA_2.png)<br><br>
+
+
+
+
+
+
+
 
 
 
