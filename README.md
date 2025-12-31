@@ -1,4 +1,46 @@
 # NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING
+
+## 📌 Overview
+
+This repository documents my hands-on learning and implementation from the "Digital VLSI SoC – Design and Planning" course offered by VLSI System Design (VSD) under the NASSCOM FutureSkills Program.
+
+The work focuses on understanding the complete RTL-to-GDSII ASIC design flow using open-source industry-standard tools, executed in a Linux (Ubuntu) environment.
+
+## 🛠 Tools & Technologies
+
+OpenLane ASIC Flow
+
+SKY130 PDK
+
+Ubuntu (Linux OS)
+
+Verilog HDL
+
+Open-source EDA tools integrated within OpenLane
+
+## 🔄 ASIC Design Flow Covered
+
+The following RTL-to-GDSII flow was studied and practically explored:
+
+RTL Design (Verilog)
+
+Synthesis
+
+Floorplanning
+
+Power Planning
+
+Placement
+
+Clock Tree Synthesis (CTS)
+
+Routing
+
+DRC & LVS Awareness
+
+Final GDSII Generation
+
+This repository captures command usage, flow understanding, and observations at each stage.
 ### Complete procedure of RTL to GDS design flow using OPENLANE and SKY130 PDK.
 <br><br><br>
 
@@ -509,9 +551,40 @@ exit
 ![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2d9435fb9a9f9746a27fc27e2df99dc9c2dfbda2/Day%205/post_Route_OpenSTA_1.png)
 ![image Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/2d9435fb9a9f9746a27fc27e2df99dc9c2dfbda2/Day%205/Post_Route_OpenSTA_2.png)<br><br>
 
+## 🎯 Key Learning Outcomes
+
+Strong understanding of Digital VLSI & SoC design concepts
+
+Practical exposure to ASIC physical design flow
+
+Hands-on experience with OpenLane and SKY130 PDK
+
+Familiarity with Linux-based EDA workflows
+
+Industry-aligned approach to SoC design planning<br><br>
 
 
+## 🚀 Future Scope
 
+Implement custom RTL blocks and run full OpenLane flow
+
+Perform basic timing and power analysis
+
+Explore optimization techniques in synthesis and floorplanning
+
+Extend learning toward ASIC Physical Design roles
+
+## Certificate Of Completion 
+![image_Alt](https://github.com/siddharthparthiban24/NASSCOM_DIGITAL_VLSI_SOC_DESIGN_AND_PLANNING-/blob/c6c1b6e0e2c0cbe809091cbdb90760678b0be48f/Day%205/5_VSD-IAT%20Nasscom%20Workshop%20Certificate%202025VSD_page-0001.jpg)
+
+
+##  Author
+
+P Siddharth <br> 
+Aspiring Digital VLSI / ASIC Engineer
+
+🔗 GitHub: https://github.com/siddharthparthiban24 <br>
+🔗 LinkedIn: www.linkedin.com/in/p-siddharth-240705psd
 
 
 
